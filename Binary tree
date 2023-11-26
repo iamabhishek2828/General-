@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <stdlib.h>
+struct node {
+    int data;
+    struct node* left;
+    struct node* right;
+};
+struct node* createNode() {
+    int data;
+    struct node* newNode = (struct node*)malloc(sizeof(struct node));
+
+    if (newNode == NULL) {
+        printf("Memory allocation failed.\n");
+        exit(1);
+    }
+
+    printf("Enter data you want to insert: ");
+    scanf("%d", &data);
+
+    newNode->data = data;
+    newNode->left = NULL;
+    newNode->right = NULL;
+
+    printf("Inserted: %d\n", data);
+
+    return newNode;
+}
+
+void preorder(struct node* root) {
+    if (root != NULL) {
+        printf("%d ", root->data);
+        preorder(root->left);
+        preorder(root->right);
+    }
+}
+
+int main() {
+    struct node* root = createNode();
+    root->left = createNode();
+    root->right = createNode();
+    root->left->left = createNode();
+
+    printf("\nPreorder traversal: ");
+    preorder(root);
+
+    return 0;
+}
